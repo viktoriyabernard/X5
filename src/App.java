@@ -28,7 +28,7 @@ public class App {
         System.out.print("Введите целое число: ");
         Scanner myScanner = new Scanner(System.in);
         String myString = myScanner.nextLine();
-        System.out.println("Последняя цифра введенного числа = " + myString.substring(myString.length() - 1));
+        System.out.println("Последняя цифра введенного числа = " + myString.substring(myString.length()-1));
     }
 
     public static void methodTwo() {
@@ -41,8 +41,8 @@ public class App {
         int myNum2 = Integer.parseInt(myString.substring(1,2));
         int myNum3 = Integer.parseInt(myString.substring(2));
         int[] myArray = new int[]{myNum1, myNum2, myNum3};
-        int summ = myArray[0] + myArray[1] + myArray[2];
-        System.out.println("Сумма цифр введенного трехзначного числа: " + myArray[0] + " + " + myArray[1] + " + " + myArray[2] + " = " + summ);
+        int sum = myArray[0] + myArray[1] + myArray[2];
+        System.out.println("Сумма цифр введенного трехзначного числа: " + myArray[0] + " + " + myArray[1] + " + " + myArray[2] + " = " + sum);
     }
 
     public static void methodThree() {
