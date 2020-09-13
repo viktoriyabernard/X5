@@ -2,8 +2,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
+import static java.lang.String.valueOf;
+
+/*Замечания по ДЗ 2:
++Нужно следить за кодстайлом и читаемостью. В IDEA есть встроенный механизм форматирования с помощью комбинации клавиш Ctrl + Alt + L, в итоге весь код будет отформатирован в более читаемом виде, предлагаю Вам попробовать (актально для всех заданий)
+Задание 2: Нужно продумать решение через циклы, так как данный вариант реализации для 10-тизначного числа будет уже не так прост в реализации, кроме того при вводе 999 Ваша программа выдаст ошибку, а это трехзначное число
+Задание 5: Переделать с помощью циклов (как считывание, так и расчет)
+Задание 6: У Вас смешана логика определения знака числа с его четностью. Если вдруг потребуется выводить еще какую-то дополнительную информацию, то так же придется дорабатывать все те if которые у Вас написаны. Нужно подумать над изменением логики, чтобы разнести определение положительности и отрицательности от четности и нечетности.
+Задание 7: Вы вручную просчитали стоимость разговора умножив сумму на 10 минут, а если 10 минут изменятся на 13 минут 34 секунды? Предлагаю это исправить
+Задание 8: Мне не очень нравятся названия переменных sumPlus – это скорее транслитерация, транслитерацию лучше не использовать, лучше переименовать sumPositiveNumbers, другие переменные аналогично
+*/
+
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.print("Введите номер задачи (от 1 до 10): ");
         Scanner myScanner = new Scanner(System.in);
         int myInt = myScanner.nextInt();
@@ -28,7 +39,7 @@ public class App {
         System.out.print("Введите целое число: ");
         Scanner myScanner = new Scanner(System.in);
         String myString = myScanner.nextLine();
-        System.out.println("Последняя цифра введенного числа = " + myString.substring(myString.length()-1));
+        System.out.println("Последняя цифра введенного числа = " + myString.substring(myString.length() - 1));
     }
 
     public static void methodTwo() {
@@ -37,12 +48,12 @@ public class App {
         System.out.print("Введите целое трехзначное число: ");
         Scanner myScanner = new Scanner(System.in);
         String myString = myScanner.nextLine();
-        int myNum1 = Integer.parseInt(myString.substring(0,1));
-        int myNum2 = Integer.parseInt(myString.substring(1,2));
-        int myNum3 = Integer.parseInt(myString.substring(2));
-        int[] myArray = new int[]{myNum1, myNum2, myNum3};
-        int sum = myArray[0] + myArray[1] + myArray[2];
-        System.out.println("Сумма цифр введенного трехзначного числа: " + myArray[0] + " + " + myArray[1] + " + " + myArray[2] + " = " + sum);
+        int sum = 0;
+        char[] ch = myString.toCharArray();
+        for (int i = 0; i < myString.length(); i++) {
+            sum += Integer.parseInt(String.valueOf(ch[i]));
+        }
+        System.out.println("Сумма цифр введенного трехзначного числа: " + sum);
     }
 
     public static void methodThree() {
@@ -67,10 +78,10 @@ public class App {
         if (myInt > 0) {
             myInt++;
             System.out.println("Итоговое число (N > 0, то N++): " + myInt);
-        }else if(myInt < 0){
+        } else if (myInt < 0) {
             myInt = myInt - 2;
             System.out.println("Итоговое число (N < 0, то N-2): " + myInt);
-        }else{
+        } else {
             myInt = 10;
             System.out.println("Итоговое число (N = 0, то N=10): " + myInt);
         }
@@ -89,12 +100,12 @@ public class App {
         if (myInt1 < myInt2) {
             if (myInt1 < myInt3) {
                 System.out.println("Наименьшее число (1): " + myInt1);
-            }else {
+            } else {
                 System.out.println("Наименьшее число (3): " + myInt3);
             }
-        }else if(myInt2 < myInt3){
+        } else if (myInt2 < myInt3) {
             System.out.println("Наименьшее число (2): " + myInt2);
-        }else {
+        } else {
             System.out.println("Наименьшее число (3): " + myInt3);
         }
     }
@@ -106,18 +117,18 @@ public class App {
         System.out.print("Введите целое число: ");
         Scanner myScanner = new Scanner(System.in);
         int myInt = myScanner.nextInt();
-        if (myInt > 0){
-            if (myInt % 2 == 0){
+        if (myInt > 0) {
+            if (myInt % 2 == 0) {
                 System.out.println("Положительное четное число: " + myInt);
-            }else{
+            } else {
                 System.out.println("Положительное нечетное число: " + myInt);
             }
-        }else if (myInt == 0){
+        } else if (myInt == 0) {
             System.out.println("Нулевое число: " + myInt);
-        }else {
+        } else {
             if (myInt % 2 == 0) {
                 System.out.println("Отрицательное четное число: " + myInt);
-            }else{
+            } else {
                 System.out.println("Отрицательное нечетное число: " + myInt);
             }
         }
@@ -150,17 +161,17 @@ public class App {
         // - среднее арифметическое отрицательных элементов
         System.out.println("ДЗ Урок №2. Задача №8");
         System.out.println("Дан массив целых чисел: [1,-10,5,6,45,23,-45,-34,0,32,56,-1,2,-2]");
-        Integer[] myArray = {1,-10,5,6,45,23,-45,-34,0,32,56,-1,2,-2};
+        Integer[] myArray = {1, -10, 5, 6, 45, 23, -45, -34, 0, 32, 56, -1, 2, -2};
         int summPlus = 0;
         int countPlus = 0;
         int countMinus = 0;
         int summChMinus = 0;
         int summMinus = 0;
-        for (int a:myArray){
-            if (a > 0){
+        for (int a : myArray) {
+            if (a > 0) {
                 summPlus = summPlus + a;
                 countPlus++;
-            }else if (a < 0) {
+            } else if (a < 0) {
                 if (a % 2 == 0) {
                     summChMinus = summChMinus + a;
                 }
@@ -168,12 +179,12 @@ public class App {
                 summMinus = summMinus + a;
             }
         }
-        float arifmMinus = (float) summMinus/countMinus;
-        System.out.println("Максимальное значение: "+ Collections.max(Arrays.asList(myArray)));
-        System.out.println("Сумма положительных элементов: "+ summPlus);
-        System.out.println("Сумма четных отрицательных элементов: "+ summChMinus);
-        System.out.println("Количество положительных элементов: "+ countPlus);
-        System.out.println("Среднее арифметическое отрицательных элементов: "+ arifmMinus);
+        float arifmMinus = (float) summMinus / countMinus;
+        System.out.println("Максимальное значение: " + Collections.max(Arrays.asList(myArray)));
+        System.out.println("Сумма положительных элементов: " + summPlus);
+        System.out.println("Сумма четных отрицательных элементов: " + summChMinus);
+        System.out.println("Количество положительных элементов: " + countPlus);
+        System.out.println("Среднее арифметическое отрицательных элементов: " + arifmMinus);
     }
 
     public static void methodNine() {
@@ -181,9 +192,9 @@ public class App {
         //Переставить элементы массива в обратном порядке. Вывести результат в консоль
         System.out.println("ДЗ Урок №2. Задача №9");
         System.out.println("Дан массив целых чисел: [15,10,51,-6,-5,3,-10,-34,0,32,56,-12,24,-52]");
-        Integer[] myArray = {15,10,51,-6,-5,3,-10,-34,0,32,56,-12,24,-52};
+        Integer[] myArray = {15, 10, 51, -6, -5, 3, -10, -34, 0, 32, 56, -12, 24, -52};
         Arrays.sort(myArray, Collections.reverseOrder());
-        System.out.println("Массив, отсортированный в обратном порядке: "+ Arrays.toString(myArray));
+        System.out.println("Массив, отсортированный в обратном порядке: " + Arrays.toString(myArray));
     }
 
     public static void methodTen() {
@@ -191,15 +202,15 @@ public class App {
         // Переместить нули в конец массива. Вывести результат в консоль
         System.out.println("ДЗ Урок №2. Задача №10");
         System.out.println("Дан массив целых чисел: [15,10,0,-6,-5,3,0,-34,0,32,56,0,24,-52]");
-        int[] myArray = {15,10,0,-6,-5,3,0,-34,0,32,56,0,24,-52};
+        int[] myArray = {15, 10, 0, -6, -5, 3, 0, -34, 0, 32, 56, 0, 24, -52};
         int[] myArrayNew = new int[myArray.length];
         int myCount = 0;
-        for (int a:myArray){
-            if (a != 0){
+        for (int a : myArray) {
+            if (a != 0) {
                 myArrayNew[myCount] = a;
                 myCount++;
             }
         }
-        System.out.println("Массив, в котором нули перенесены в конец: "+ Arrays.toString(myArrayNew));
+        System.out.println("Массив, в котором нули перенесены в конец: " + Arrays.toString(myArrayNew));
     }
 }
