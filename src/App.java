@@ -2,17 +2,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
-import static java.lang.String.valueOf;
-
-/*Замечания по ДЗ 2:
-+Нужно следить за кодстайлом и читаемостью. В IDEA есть встроенный механизм форматирования с помощью комбинации клавиш Ctrl + Alt + L, в итоге весь код будет отформатирован в более читаемом виде, предлагаю Вам попробовать (актально для всех заданий)
-Задание 2: Нужно продумать решение через циклы, так как данный вариант реализации для 10-тизначного числа будет уже не так прост в реализации, кроме того при вводе 999 Ваша программа выдаст ошибку, а это трехзначное число
-Задание 5: Переделать с помощью циклов (как считывание, так и расчет)
-Задание 6: У Вас смешана логика определения знака числа с его четностью. Если вдруг потребуется выводить еще какую-то дополнительную информацию, то так же придется дорабатывать все те if которые у Вас написаны. Нужно подумать над изменением логики, чтобы разнести определение положительности и отрицательности от четности и нечетности.
-Задание 7: Вы вручную просчитали стоимость разговора умножив сумму на 10 минут, а если 10 минут изменятся на 13 минут 34 секунды? Предлагаю это исправить
-Задание 8: Мне не очень нравятся названия переменных sumPlus – это скорее транслитерация, транслитерацию лучше не использовать, лучше переименовать sumPositiveNumbers, другие переменные аналогично
-*/
-
 public class App {
     public static void main(String[] args) {
         System.out.print("Введите номер задачи (от 1 до 10): ");
@@ -45,8 +34,8 @@ public class App {
     public static void methodTwo() {
         //Ввести целое трехзначное число в консоли и найти сумму цифр этого трехзначного числа
         System.out.println("ДЗ Урок №2. Задача №2");
-        System.out.print("Введите целое трехзначное число: ");
         Scanner myScanner = new Scanner(System.in);
+        System.out.print("Введите целое трехзначное число: ");
         String myString = myScanner.nextLine();
         int sum = 0;
         char[] ch = myString.toCharArray();
@@ -90,24 +79,19 @@ public class App {
     public static void methodFive() {
         //Ввести три целых числа с консоли. Вывести на экран наименьшее из них
         System.out.println("ДЗ Урок №2. Задача №5");
-        System.out.print("Введите три целых числа через пробел: ");
         Scanner myScanner = new Scanner(System.in);
-        String myString = myScanner.nextLine();
-        String[] myArray = myString.split(" ");
-        int myInt1 = Integer.parseInt(myArray[0]);
-        int myInt2 = Integer.parseInt(myArray[1]);
-        int myInt3 = Integer.parseInt(myArray[2]);
-        if (myInt1 < myInt2) {
-            if (myInt1 < myInt3) {
-                System.out.println("Наименьшее число (1): " + myInt1);
-            } else {
-                System.out.println("Наименьшее число (3): " + myInt3);
-            }
-        } else if (myInt2 < myInt3) {
-            System.out.println("Наименьшее число (2): " + myInt2);
-        } else {
-            System.out.println("Наименьшее число (3): " + myInt3);
+        int[] myIntArray = new int[3];
+        for (int i = 0; i < 3; i++) {
+            System.out.print("Введите " + i + "-е целое число: ");
+            myIntArray[i] = myScanner.nextInt();
         }
+        int minNumber = myIntArray[0];
+        for (int i = 1; i < myIntArray.length; i++) {
+            if (myIntArray[i] < minNumber) {
+                minNumber = myIntArray[i];
+            }
+        }
+        System.out.println(minNumber + " - наименьшее число");
     }
 
     public static void methodSix() {
@@ -117,20 +101,16 @@ public class App {
         System.out.print("Введите целое число: ");
         Scanner myScanner = new Scanner(System.in);
         int myInt = myScanner.nextInt();
-        if (myInt > 0) {
-            if (myInt % 2 == 0) {
-                System.out.println("Положительное четное число: " + myInt);
-            } else {
-                System.out.println("Положительное нечетное число: " + myInt);
-            }
-        } else if (myInt == 0) {
-            System.out.println("Нулевое число: " + myInt);
+        if (myInt > 0 && myInt % 2 == 0) {
+            System.out.println(myInt + " - положительное четное число");
+        } else if (myInt > 0 && myInt % 2 != 0) {
+            System.out.println(myInt + " - положительное нечетное число");
+        } else if (myInt < 0 && myInt % 2 == 0) {
+            System.out.println(myInt + " - отрицательное четное число");
+        } else if (myInt < 0 && myInt % 2 != 0) {
+            System.out.println(myInt + " - отрицательное нечетное число");
         } else {
-            if (myInt % 2 == 0) {
-                System.out.println("Отрицательное четное число: " + myInt);
-            } else {
-                System.out.println("Отрицательное нечетное число: " + myInt);
-            }
+            System.out.println(myInt + " - нулевое число");
         }
     }
 
@@ -143,11 +123,12 @@ public class App {
         System.out.print("Введите код города (Москва-905, Ростов-194, Краснодар-491, Киров-800): ");
         Scanner myScanner = new Scanner(System.in);
         int myInt = myScanner.nextInt();
+        int t = 10; //Кол-во минут разговора
         switch (myInt) {
-            case 905 -> System.out.println("Москва. Стоимость разговора: 41,5 руб.");
-            case 194 -> System.out.println("Ростов. Стоимость разговора: 19,8 руб.");
-            case 491 -> System.out.println("Краснодар. Стоимость разговора: 26,9 руб.");
-            case 800 -> System.out.println("Киров. Стоимость разговора: 50,0 руб.");
+            case 905 -> System.out.println("Москва. Стоимость разговора: " + t * 4.15 + " руб.");
+            case 194 -> System.out.println("Ростов. Стоимость разговора: " + t * 1.98 + " руб.");
+            case 491 -> System.out.println("Краснодар. Стоимость разговора: " + t * 2.69 + " руб.");
+            case 800 -> System.out.println("Киров. Стоимость разговора: " + t * 5.00 + " руб.");
             default -> System.out.println("Введенный код города (" + myInt + ") в справочнике не найден.");
         }
     }
@@ -162,29 +143,29 @@ public class App {
         System.out.println("ДЗ Урок №2. Задача №8");
         System.out.println("Дан массив целых чисел: [1,-10,5,6,45,23,-45,-34,0,32,56,-1,2,-2]");
         Integer[] myArray = {1, -10, 5, 6, 45, 23, -45, -34, 0, 32, 56, -1, 2, -2};
-        int summPlus = 0;
-        int countPlus = 0;
-        int countMinus = 0;
-        int summChMinus = 0;
-        int summMinus = 0;
+        int countPositiveNumbers = 0;
+        int summPositiveNumbers = 0;
+        int countNegativeNumbers = 0;
+        int summNegativeNumbers = 0;
+        int summEvenNegativeNumbers = 0;
         for (int a : myArray) {
             if (a > 0) {
-                summPlus = summPlus + a;
-                countPlus++;
+                summPositiveNumbers = summPositiveNumbers + a;
+                countPositiveNumbers++;
             } else if (a < 0) {
                 if (a % 2 == 0) {
-                    summChMinus = summChMinus + a;
+                    summEvenNegativeNumbers = summEvenNegativeNumbers + a;
                 }
-                countMinus++;
-                summMinus = summMinus + a;
+                countNegativeNumbers++;
+                summNegativeNumbers = summNegativeNumbers + a;
             }
         }
-        float arifmMinus = (float) summMinus / countMinus;
+        float averageNegativeNumbers = (float) summNegativeNumbers / countNegativeNumbers;
         System.out.println("Максимальное значение: " + Collections.max(Arrays.asList(myArray)));
-        System.out.println("Сумма положительных элементов: " + summPlus);
-        System.out.println("Сумма четных отрицательных элементов: " + summChMinus);
-        System.out.println("Количество положительных элементов: " + countPlus);
-        System.out.println("Среднее арифметическое отрицательных элементов: " + arifmMinus);
+        System.out.println("Сумма положительных элементов: " + summPositiveNumbers);
+        System.out.println("Сумма четных отрицательных элементов: " + summEvenNegativeNumbers);
+        System.out.println("Количество положительных элементов: " + countPositiveNumbers);
+        System.out.println("Среднее арифметическое отрицательных элементов: " + averageNegativeNumbers);
     }
 
     public static void methodNine() {
